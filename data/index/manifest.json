@@ -1,0 +1,8 @@
+{
+  "source_path": "meta_Amazon_Fashion.jsonl.gz",
+  "product_count": 16000,
+  "embedding_backend": "hashing",
+  "embedding_model": "local-fashion-hashing-v1",
+  "dimensions": 768,
+  "created_by": "scripts/build_index.py"
+}

@@ -1,0 +1,3 @@
+# Optional but recommended for stronger local semantic embeddings.
+sentence-transformers>=3.0
+
