@@ -316,3 +316,75 @@ def test_general_question_with_color_is_not_fashion_request(tmp_path) -> None:
 
     assert result["recommendations"] == []
     assert result["message"] is not None
+
+
+def test_explicit_product_type_is_preferred(tmp_path) -> None:
+    products = [
+        ProductRecord(
+            parent_asin="JACKET1",
+            title="Waterproof hiking jacket",
+            store="Trail",
+            price=59.99,
+            average_rating=4.7,
+            rating_number=200,
+            main_category="AMAZON FASHION",
+            search_text="waterproof hiking outdoor jacket rain shell",
+        ),
+        ProductRecord(
+            parent_asin="BOOTS1",
+            title="Waterproof hiking boots",
+            store="Trail",
+            price=69.99,
+            average_rating=4.2,
+            rating_number=80,
+            main_category="AMAZON FASHION",
+            search_text="waterproof hiking outdoor boots rain footwear",
+        ),
+    ]
+    build_index(products, HashingEmbedder(), tmp_path, source_path=tmp_path / "sample.jsonl.gz")
+    index = ProductIndex.load(tmp_path)
+
+    result = index.recommend(
+        "waterproof hiking boots",
+        top_k=2,
+        filters=ProductFilters(require_price=True),
+        interpreter=LocalQueryInterpreter(),
+    )
+
+    assert result["recommendations"][0]["parent_asin"] == "BOOTS1"
+
+
+def test_maternity_query_avoids_costume_mismatch(tmp_path) -> None:
+    products = [
+        ProductRecord(
+            parent_asin="COSTUME1",
+            title="Renaissance costume dress",
+            store="Costume Shop",
+            price=35.0,
+            average_rating=4.8,
+            rating_number=250,
+            main_category="AMAZON FASHION",
+            search_text="renaissance costume gothic fairy gown dress",
+        ),
+        ProductRecord(
+            parent_asin="MATERNITY1",
+            title="Maternity stretch dress",
+            store="Mom Shop",
+            price=32.0,
+            average_rating=4.1,
+            rating_number=25,
+            main_category="AMAZON FASHION",
+            search_text="maternity pregnancy stretch comfortable dress",
+        ),
+    ]
+    build_index(products, HashingEmbedder(), tmp_path, source_path=tmp_path / "sample.jsonl.gz")
+    index = ProductIndex.load(tmp_path)
+
+    result = index.recommend(
+        "maternity wear",
+        top_k=2,
+        filters=ProductFilters(require_price=True),
+        interpreter=LocalQueryInterpreter(),
+    )
+
+    assert [item["parent_asin"] for item in result["recommendations"]] == ["MATERNITY1"]

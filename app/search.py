@@ -12,7 +12,36 @@ from app.embedding import Embedder, create_embedder
 from app.ingest import ProductRecord
 from app.llm import LocalQueryInterpreter
 from app.models import ProductFilters
-from app.text_utils import is_fashion_request, shared_query_terms, tokenize
+from app.text_utils import FASHION_PRODUCT_TERMS, is_fashion_request, shared_query_terms, tokenize
+
+
+BROAD_PRODUCT_TERMS = {
+    "accessories",
+    "accessory",
+    "activewear",
+    "apparel",
+    "clothes",
+    "clothing",
+    "costume",
+    "fashion",
+    "footwear",
+    "jewelry",
+    "outfit",
+}
+
+SPECIFIC_PRODUCT_TERMS = FASHION_PRODUCT_TERMS - BROAD_PRODUCT_TERMS
+
+PRODUCT_TERM_ALIASES = {
+    "coat": {"coat", "coats", "jacket", "jackets", "parka", "parkas"},
+    "jacket": {"coat", "coats", "jacket", "jackets", "parka", "parkas"},
+    "shoe": {"shoe", "shoes", "sneaker", "sneakers", "loafer", "loafers", "oxford", "oxfords"},
+    "shoes": {"shoe", "shoes", "sneaker", "sneakers", "loafer", "loafers", "oxford", "oxfords"},
+    "sneaker": {"shoe", "shoes", "sneaker", "sneakers", "trainer", "trainers"},
+    "sneakers": {"shoe", "shoes", "sneaker", "sneakers", "trainer", "trainers"},
+    "t-shirt": {"t-shirt", "tshirt", "tee", "shirt", "top"},
+    "tee": {"t-shirt", "tshirt", "tee", "shirt", "top"},
+    "top": {"top", "tops", "blouse", "blouses", "shirt", "shirts", "tee", "t-shirt"},
+}
 
 
 class ProductIndex:
@@ -213,6 +242,20 @@ def _semantic_adjustment(
     text = f"{product.get('title', '')} {product.get('search_text', '')}".lower()
 
     boost = min(0.18, len(set(matched_terms)) * 0.025)
+    requested_product_terms = _requested_product_terms(original_query)
+    if requested_product_terms:
+        title = str(product.get("title") or "").lower()
+        title_tokens = set(tokenize(title))
+        matched_product_terms = [
+            term
+            for term in requested_product_terms
+            if _term_matches_product_title(term, title_tokens, title)
+        ]
+        if matched_product_terms:
+            boost += min(0.3, len(matched_product_terms) * 0.14)
+        else:
+            boost -= 0.34
+
     product_gender = _product_gender(text)
     if requested_gender is not None:
         if product_gender == requested_gender:
@@ -274,6 +317,25 @@ def _semantic_adjustment(
             boost -= 0.08
 
     return boost
+
+
+def _requested_product_terms(query: str) -> set[str]:
+    lower = query.lower()
+    terms = set(tokenize(lower)) & SPECIFIC_PRODUCT_TERMS
+    if "black tie" in lower:
+        terms.discard("tie")
+    return terms
+
+
+def _term_matches_product_title(term: str, title_tokens: set[str], title: str) -> bool:
+    candidates = set(PRODUCT_TERM_ALIASES.get(term, (term,)))
+    candidates.add(term)
+    if term.endswith("s") and len(term) > 3:
+        candidates.add(term[:-1])
+    else:
+        candidates.add(f"{term}s")
+    candidates.add(term.replace("-", " "))
+    return bool(candidates & title_tokens) or any(f" {candidate} " in f" {title} " for candidate in candidates)
 
 
 def _requested_gender(query: str) -> str | None:

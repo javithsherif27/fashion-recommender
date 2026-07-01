@@ -87,6 +87,19 @@ http://127.0.0.1:8000
 
 The UI is served by the same FastAPI app. It lets a reviewer enter a natural-language shopping request, choose result count, optionally add price/rating filters, require products with a listed price, and see recommendations from the local index. Non-fashion queries return an empty state with a scope message instead of unrelated products.
 
+## Supported Search Criteria
+
+The recommender accepts several fashion shopping query shapes:
+
+- Direct product types: `linen shirt`, `gold earrings`, `waterproof hiking boots`, `leather wallet`.
+- Audience/category searches: `men`, `women`, `kids school shoes`, `maternity wear`, `plus size cotton kurti`.
+- Occasion and dress-code searches: `office interview outfit`, `date night`, `black tie wedding outfit`, `festival dress`.
+- Activity and weather searches: `running socks`, `yoga leggings`, `winter travel clothes`, `rain jacket`.
+- Attribute searches: color, pattern, material, fit, size, style, and feature terms such as `blue pink`, `red floral`, `cotton slim fit`, `petite formal trousers`, or `waterproof breathable`.
+- Natural language styling questions: `what should I wear to a beach wedding` or `what to wear for office interview`.
+
+General questions and non-shopping text, such as `what is Indias national anthem`, `what is blue light`, or `how to cook rice`, are rejected before vector search.
+
 ## API Usage
 
 ```powershell
