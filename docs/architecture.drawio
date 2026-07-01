@@ -1,64 +1,94 @@
 <mxfile host="app.diagrams.net" modified="2026-07-01T00:00:00.000Z" agent="draw.io" version="24.7.17">
   <diagram id="semantic-fashion-recommender" name="Architecture">
-    <mxGraphModel dx="1200" dy="780" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+    <mxGraphModel dx="1500" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1500" pageHeight="900" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
-        <mxCell id="title" value="Semantic Fashion Recommendation Microservice" style="text;html=1;strokeColor=none;fillColor=none;fontSize=22;fontStyle=1;fontColor=#1e293b;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="60" y="40" width="620" height="40" as="geometry" />
+        <mxCell id="title" value="Semantic Fashion Recommendation Microservice" style="text;html=1;strokeColor=none;fillColor=none;fontSize=24;fontStyle=1;fontColor=#111827;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="35" width="650" height="45" as="geometry" />
         </mxCell>
-        <mxCell id="dataset" value="Amazon Fashion metadata&#xa;JSONL.GZ source" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f8fafc;strokeColor=#0f766e;fontColor=#1e293b;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="70" y="140" width="170" height="80" as="geometry" />
+        <mxCell id="subtitle" value="Local vector search with optional LLM intent enrichment, fashion relevance checks, and practical product filters." style="text;html=1;strokeColor=none;fillColor=none;fontSize=13;fontColor=#4b5563;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="78" width="760" height="28" as="geometry" />
         </mxCell>
-        <mxCell id="ingest" value="Ingestion&#xa;clean product text" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ecfeff;strokeColor=#0891b2;fontColor=#164e63;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="290" y="140" width="170" height="80" as="geometry" />
+
+        <mxCell id="offlineLabel" value="Index build path" style="text;html=1;strokeColor=none;fillColor=none;fontSize=13;fontStyle=1;fontColor=#374151;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="120" width="180" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="embed" value="Embedding builder&#xa;local model or hashing fallback" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f0fdf4;strokeColor=#16a34a;fontColor=#14532d;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="510" y="140" width="190" height="80" as="geometry" />
+        <mxCell id="dataset" value="Amazon Fashion metadata&#xa;JSONL.GZ source" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f9fafb;strokeColor=#475569;fontColor=#111827;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="155" width="190" height="82" as="geometry" />
         </mxCell>
-        <mxCell id="index" value="Local vector index&#xa;embeddings + product metadata" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fff7ed;strokeColor=#ea580c;fontColor=#7c2d12;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="750" y="140" width="200" height="80" as="geometry" />
+        <mxCell id="ingest" value="Ingestion&#xa;normalize product text" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="295" y="155" width="190" height="82" as="geometry" />
         </mxCell>
-        <mxCell id="user" value="User query&#xa;API, CLI, or browser demo" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f8fafc;strokeColor=#0f766e;fontColor=#1e293b;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="70" y="360" width="170" height="80" as="geometry" />
+        <mxCell id="embed" value="Embedding builder&#xa;semantic model or local hashing" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ecfdf5;strokeColor=#059669;fontColor=#064e3b;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="530" y="155" width="220" height="82" as="geometry" />
         </mxCell>
-        <mxCell id="llm" value="Optional OpenAI layer&#xa;query intent + explanations" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#eef2ff;strokeColor=#4f46e5;fontColor=#312e81;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="290" y="360" width="190" height="80" as="geometry" />
+        <mxCell id="index" value="File-based vector index&#xa;embeddings.npy + products.jsonl" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fff7ed;strokeColor=#ea580c;fontColor=#7c2d12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="795" y="155" width="240" height="82" as="geometry" />
         </mxCell>
-        <mxCell id="search" value="Semantic search&#xa;filters, rerank, dedupe" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f0fdf4;strokeColor=#16a34a;fontColor=#14532d;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="530" y="360" width="180" height="80" as="geometry" />
+
+        <mxCell id="runtimeLabel" value="Recommendation path" style="text;html=1;strokeColor=none;fillColor=none;fontSize=13;fontStyle=1;fontColor=#374151;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="315" width="210" height="26" as="geometry" />
         </mxCell>
-        <mxCell id="response" value="Recommendations&#xa;scores + human reasons" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fff7ed;strokeColor=#ea580c;fontColor=#7c2d12;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="760" y="360" width="190" height="80" as="geometry" />
+        <mxCell id="entry" value="Request entry&#xa;API, CLI, or browser UI" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f9fafb;strokeColor=#475569;fontColor=#111827;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="350" width="190" height="88" as="geometry" />
         </mxCell>
-        <mxCell id="note" value="If OPENAI_API_KEY is not set, the service uses local query expansion and local vector search." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#cbd5e1;fontColor=#475569;align=left;spacing=12;" vertex="1" parent="1">
-          <mxGeometry x="290" y="490" width="420" height="70" as="geometry" />
+        <mxCell id="intent" value="Intent interpreter&#xa;optional OpenAI or local expansion" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#eef2ff;strokeColor=#4f46e5;fontColor=#312e81;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="295" y="350" width="220" height="88" as="geometry" />
         </mxCell>
-        <mxCell id="e1" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#475569;" edge="1" parent="1" source="dataset" target="ingest">
+        <mxCell id="guard" value="Fashion-domain guard&#xa;reject unrelated questions early" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fef2f2;strokeColor=#dc2626;fontColor=#7f1d1d;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="350" width="220" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="search" value="Vector candidate search&#xa;numpy similarity over local index" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ecfdf5;strokeColor=#059669;fontColor=#064e3b;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="825" y="350" width="230" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="filters" value="Filters and safeguards&#xa;listed price, rating, gender, kids" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fffbeb;strokeColor=#d97706;fontColor=#78350f;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="350" width="230" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="response" value="Recommendations&#xa;scores + concise reasons" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fff7ed;strokeColor=#ea580c;fontColor=#7c2d12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="525" width="230" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="empty" value="Scoped empty response&#xa;message explains fashion-only scope" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f8fafc;strokeColor=#64748b;fontColor=#334155;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="560" y="525" width="220" height="88" as="geometry" />
+        </mxCell>
+        <mxCell id="note" value="OPENAI_API_KEY is optional. Without a key, the service keeps running with local query expansion and local vector search. The UI defaults to products with a listed price because the source data has many missing prices." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#d1d5db;fontColor=#4b5563;align=left;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="295" y="690" width="760" height="82" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="dataset" target="ingest">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e2" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#475569;" edge="1" parent="1" source="ingest" target="embed">
+        <mxCell id="e2" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="ingest" target="embed">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e3" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#475569;" edge="1" parent="1" source="embed" target="index">
+        <mxCell id="e3" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="embed" target="index">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e4" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#475569;" edge="1" parent="1" source="user" target="llm">
+        <mxCell id="e4" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="entry" target="intent">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e5" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#475569;" edge="1" parent="1" source="llm" target="search">
+        <mxCell id="e5" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="intent" target="guard">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
-        <mxCell id="e6" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#475569;" edge="1" parent="1" source="index" target="search">
+        <mxCell id="e6" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;fontColor=#374151;" edge="1" parent="1" source="guard" target="search">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="search" target="filters">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="filters" target="response">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" value="not fashion" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#64748b;fontColor=#475569;dashed=1;" edge="1" parent="1" source="guard" target="empty">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#64748b;dashed=1;" edge="1" parent="1" source="index" target="search">
           <mxGeometry relative="1" as="geometry">
-            <mxPoint x="850" y="300" as="sourcePoint" />
-            <mxPoint x="620" y="340" as="targetPoint" />
+            <mxPoint x="915" y="250" as="sourcePoint" />
+            <mxPoint x="940" y="340" as="targetPoint" />
           </mxGeometry>
         </mxCell>
-        <mxCell id="e7" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#475569;" edge="1" parent="1" source="search" target="response">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e8" style="endArrow=open;html=1;rounded=0;dashed=1;strokeColor=#64748b;" edge="1" parent="1" source="note" target="llm">
+        <mxCell id="e11" style="endArrow=open;html=1;rounded=0;strokeColor=#94a3b8;dashed=1;" edge="1" parent="1" source="note" target="intent">
           <mxGeometry relative="1" as="geometry" />
         </mxCell>
       </root>

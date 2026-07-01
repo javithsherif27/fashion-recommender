@@ -12,7 +12,7 @@ from app.embedding import Embedder, create_embedder
 from app.ingest import ProductRecord
 from app.llm import LocalQueryInterpreter
 from app.models import ProductFilters
-from app.text_utils import shared_query_terms, tokenize
+from app.text_utils import is_fashion_request, shared_query_terms, tokenize
 
 
 class ProductIndex:
@@ -57,6 +57,20 @@ class ProductIndex:
     ) -> dict[str, Any]:
         started = time.perf_counter()
         intent = interpreter.interpret(query)
+        if not is_fashion_request(query):
+            return {
+                "query": query,
+                "interpreted_query": intent.search_query,
+                "llm_used": intent.llm_used,
+                "llm_provider": intent.provider,
+                "embedding_backend": self.embedder.backend,
+                "recommendations": [],
+                "latency_ms": int((time.perf_counter() - started) * 1000),
+                "message": (
+                    "This service is scoped to fashion product recommendations. "
+                    "Try a clothing item, accessory, season, occasion, or audience request."
+                ),
+            }
         requested_gender = _requested_gender(query)
         query_vector = self.embedder.encode([intent.search_query], is_query=True)[0]
         similarities = self.embeddings @ query_vector
@@ -122,6 +136,7 @@ class ProductIndex:
             "embedding_backend": self.embedder.backend,
             "recommendations": selected,
             "latency_ms": elapsed,
+            "message": None,
         }
 
 

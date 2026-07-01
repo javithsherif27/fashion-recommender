@@ -587,7 +587,7 @@
       backendLabel.textContent = data.llm_used ? data.llm_provider : data.embedding_backend;
 
       if (count === 0) {
-        results.innerHTML = `<div class="empty-state">No matching products found.</div>`;
+        results.innerHTML = `<div class="empty-state">${escapeHtml(data.message || "No matching products found.")}</div>`;
         return;
       }
 

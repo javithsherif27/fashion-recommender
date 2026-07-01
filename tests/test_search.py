@@ -197,3 +197,57 @@ def test_adult_query_excludes_kids_products(tmp_path) -> None:
     )
 
     assert [item["parent_asin"] for item in result["recommendations"]] == ["MEN1"]
+
+
+def test_non_fashion_query_returns_no_recommendations(tmp_path) -> None:
+    products = [
+        ProductRecord(
+            parent_asin="GIFT1",
+            title="Brother birthday gift tumbler",
+            store="Gift Shop",
+            price=24.99,
+            average_rating=4.6,
+            rating_number=88,
+            main_category="AMAZON FASHION",
+            search_text="Brother birthday gifts cup tumbler best brother gift",
+        )
+    ]
+    build_index(products, HashingEmbedder(), tmp_path, source_path=tmp_path / "sample.jsonl.gz")
+    index = ProductIndex.load(tmp_path)
+
+    result = index.recommend(
+        "what is Indias national anthem",
+        top_k=5,
+        filters=ProductFilters(require_price=True),
+        interpreter=LocalQueryInterpreter(),
+    )
+
+    assert result["recommendations"] == []
+    assert result["message"] is not None
+
+
+def test_audience_word_alone_is_not_fashion_request(tmp_path) -> None:
+    products = [
+        ProductRecord(
+            parent_asin="WOMEN1",
+            title="Women's padded sports bra",
+            store="Active Shop",
+            price=23.99,
+            average_rating=4.3,
+            rating_number=18,
+            main_category="AMAZON FASHION",
+            search_text="women sports bra workout activewear",
+        )
+    ]
+    build_index(products, HashingEmbedder(), tmp_path, source_path=tmp_path / "sample.jsonl.gz")
+    index = ProductIndex.load(tmp_path)
+
+    result = index.recommend(
+        "what is international women day",
+        top_k=5,
+        filters=ProductFilters(require_price=True),
+        interpreter=LocalQueryInterpreter(),
+    )
+
+    assert result["recommendations"] == []
+    assert result["message"] is not None

@@ -126,6 +126,122 @@ FASHION_EXPANSIONS: dict[str, tuple[str, ...]] = {
     ),
 }
 
+FASHION_REQUEST_TERMS = {
+    "accessory",
+    "activewear",
+    "athletic",
+    "beach",
+    "beanie",
+    "belt",
+    "bikini",
+    "blazer",
+    "boots",
+    "bra",
+    "business",
+    "cap",
+    "cardigan",
+    "casual",
+    "clothes",
+    "clothing",
+    "coat",
+    "cotton",
+    "dress",
+    "fleece",
+    "flip",
+    "formal",
+    "gloves",
+    "gown",
+    "gym",
+    "hat",
+    "hoodie",
+    "interview",
+    "jacket",
+    "jeans",
+    "jogger",
+    "leggings",
+    "linen",
+    "men",
+    "mens",
+    "men's",
+    "office",
+    "outfit",
+    "pants",
+    "party",
+    "rain",
+    "running",
+    "sandal",
+    "sandals",
+    "scarf",
+    "shirt",
+    "shoes",
+    "shorts",
+    "ski",
+    "sneakers",
+    "socks",
+    "sports",
+    "summer",
+    "sweater",
+    "sweatpants",
+    "sweatshirt",
+    "swimwear",
+    "tank",
+    "tee",
+    "thermal",
+    "top",
+    "travel",
+    "trousers",
+    "wear",
+    "wedding",
+    "winter",
+    "women",
+    "womens",
+    "women's",
+    "workout",
+    "yoga",
+}
+
+FASHION_PRODUCT_TERMS = FASHION_REQUEST_TERMS - {
+    "beach",
+    "business",
+    "casual",
+    "interview",
+    "men",
+    "mens",
+    "men's",
+    "office",
+    "party",
+    "rain",
+    "running",
+    "ski",
+    "sports",
+    "summer",
+    "travel",
+    "wedding",
+    "winter",
+    "women",
+    "womens",
+    "women's",
+    "workout",
+    "yoga",
+}
+
+FASHION_CONTEXT_TERMS = FASHION_REQUEST_TERMS - FASHION_PRODUCT_TERMS
+
+SHOPPING_INTENT_TERMS = {
+    "buy",
+    "find",
+    "for",
+    "looking",
+    "need",
+    "recommend",
+    "search",
+    "shop",
+    "show",
+    "suggest",
+    "want",
+    "wear",
+}
+
 
 def tokenize(text: str) -> list[str]:
     return TOKEN_RE.findall(text.lower())
@@ -170,6 +286,28 @@ def infer_avoid_terms(query: str) -> list[str]:
     if {"running", "gym", "workout"} & tokens or "running" in lower or "gym" in lower:
         avoid.extend(["formal", "wedding", "gown", "dress shirt"])
     return list(dict.fromkeys(avoid))
+
+
+def is_fashion_request(query: str) -> bool:
+    tokens = set(tokenize(query))
+    if not tokens:
+        return False
+    if tokens & FASHION_PRODUCT_TERMS:
+        return True
+    has_shopping_intent = bool(tokens & SHOPPING_INTENT_TERMS)
+    has_fashion_context = bool(tokens & FASHION_CONTEXT_TERMS)
+    has_descriptive_context = any(
+        term in query.lower()
+        for term in (
+            "what should i wear",
+            "what to wear",
+            "dress code",
+            "outdoor",
+            "warm weather",
+            "cold weather",
+        )
+    )
+    return has_shopping_intent and (has_fashion_context or has_descriptive_context)
 
 
 def shared_query_terms(query: str, product_text: str, max_terms: int = 5) -> list[str]:

@@ -34,3 +34,4 @@ class RecommendResponse(BaseModel):
     embedding_backend: str
     recommendations: list[Recommendation]
     latency_ms: int
+    message: str | None = None
