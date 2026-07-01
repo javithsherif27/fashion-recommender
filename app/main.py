@@ -6,7 +6,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse
 
 from app import config
-from app.llm import get_interpreter
+from app.llm import OpenAIRequiredError, get_interpreter
 from app.models import RecommendRequest, RecommendResponse
 from app.search import ProductIndex
 
@@ -41,7 +41,12 @@ def health() -> dict[str, object]:
         "index_ready": index_ready,
         "index_dir": str(INDEX_PATH),
         "llm_configured": bool(config.OPENAI_API_KEY),
+        "llm_required": config.REQUIRE_OPENAI,
+        "llm_model": config.OPENAI_MODEL if config.OPENAI_API_KEY else None,
     }
+    if config.REQUIRE_OPENAI and not config.OPENAI_API_KEY:
+        payload["status"] = "misconfigured"
+        payload["llm_error"] = "OPENAI_API_KEY is required in this deployment."
     if index_ready:
         try:
             index = get_index()
@@ -63,11 +68,13 @@ def recommend(request: RecommendRequest) -> dict[str, object]:
         index = get_index()
     except FileNotFoundError as exc:
         raise HTTPException(status_code=503, detail=str(exc)) from exc
-    interpreter = get_interpreter()
-    return index.recommend(
-        request.query,
-        top_k=request.top_k,
-        filters=request.filters,
-        interpreter=interpreter,
-    )
-
+    try:
+        interpreter = get_interpreter()
+        return index.recommend(
+            request.query,
+            top_k=request.top_k,
+            filters=request.filters,
+            interpreter=interpreter,
+        )
+    except OpenAIRequiredError as exc:
+        raise HTTPException(status_code=503, detail=str(exc)) from exc

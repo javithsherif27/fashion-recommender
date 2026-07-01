@@ -54,6 +54,7 @@ Behavior:
 
 - If `OPENAI_API_KEY` is present, the service uses OpenAI to turn natural-language requests into richer product search intent and to improve result explanations.
 - If the key is missing or an API call fails, the service falls back to local query expansion and local vector search.
+- For AWS/demo deployments that must prove OpenAI usage, set `REQUIRE_OPENAI=true`. In that mode, missing credentials or OpenAI API failures return a service error instead of silently falling back to local query interpretation.
 
 ## Index
 
@@ -165,7 +166,7 @@ The high-level flow is:
 
 ```text
 Dataset -> ingestion -> embeddings -> vector index
-User query -> optional OpenAI/local interpretation -> fashion-domain guard -> vector search -> price/audience filters -> rerank/dedupe -> recommendations
+User query -> OpenAI or local interpretation -> fashion-domain guard -> local vector search -> price/audience filters -> rerank/dedupe -> recommendations
 Out-of-domain query -> scoped empty response
 ```
 
@@ -178,6 +179,7 @@ Diagram files:
 
 - The app is intentionally small: FastAPI, local files, and numpy vector search are enough for a reviewable prototype.
 - The OpenAI layer is optional because reviewers should be able to run the submission without a secret key.
+- `REQUIRE_OPENAI=true` is available for hosted demos where OpenAI usage must be enforced and visible in `/health` and `/recommend` responses.
 - The local fallback includes query expansion for common fashion intents like beach, summer, running, office, wedding, winter, and travel.
 - The recommender rejects non-fashion requests before vector search because nearest-neighbor search will otherwise always return something, even for unrelated questions. The guard still allows compact product-attribute searches such as color and pattern terms.
 - Audience filtering keeps mens, womens, unisex, and kids-oriented matches aligned with the request instead of relying on similarity alone.
@@ -193,3 +195,85 @@ The Amazon Fashion metadata contains 826,108 rows. Many rows have title, store, 
 ```powershell
 .\.venv\Scripts\pytest
 ```
+
+## AWS Free-Tier Deployment Plan
+
+Use one EC2 instance and keep the app self-contained. The hosted service still searches the local Amazon Fashion sample index in `data/index`; OpenAI is used only for query interpretation and result explanations.
+
+Recommended AWS shape:
+
+- EC2 free-tier eligible instance, such as `t3.micro` or `t2.micro` where available for the account and region.
+- Amazon Linux.
+- 8 GB EBS root volume.
+- No load balancer, NAT Gateway, RDS, Route 53, Elastic IP, S3 bucket, or AWS Secrets Manager.
+- Security group inbound rule for TCP `8000` from the reviewer IP range, or temporarily from the internet for demo review.
+
+Server setup:
+
+```bash
+sudo dnf update -y
+sudo dnf install -y git python3 python3-pip
+sudo mkdir -p /opt/fashion-recommender
+sudo chown ec2-user:ec2-user /opt/fashion-recommender
+git clone https://github.com/javithsherif27/fashion-recommender.git /opt/fashion-recommender
+cd /opt/fashion-recommender
+python3 -m venv .venv
+. .venv/bin/activate
+python -m pip install --upgrade pip
+pip install -r requirements.txt
+```
+
+Create the private server-side secret file:
+
+```bash
+sudo tee /etc/fashion-recommender.env >/dev/null <<'EOF'
+OPENAI_API_KEY=replace-with-runtime-key
+OPENAI_MODEL=gpt-4o-mini
+USE_LLM=auto
+REQUIRE_OPENAI=true
+INDEX_DIR=data/index
+EMBEDDING_BACKEND=auto
+EOF
+sudo chown root:root /etc/fashion-recommender.env
+sudo chmod 600 /etc/fashion-recommender.env
+```
+
+Create a `systemd` service:
+
+```bash
+sudo tee /etc/systemd/system/fashion-recommender.service >/dev/null <<'EOF'
+[Unit]
+Description=Fashion recommender FastAPI service
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+User=ec2-user
+Group=ec2-user
+WorkingDirectory=/opt/fashion-recommender
+EnvironmentFile=/etc/fashion-recommender.env
+ExecStart=/opt/fashion-recommender/.venv/bin/python -m uvicorn app.main:app --host 0.0.0.0 --port 8000
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+EOF
+sudo systemctl daemon-reload
+sudo systemctl enable --now fashion-recommender
+```
+
+Smoke test from your machine:
+
+```bash
+curl http://PUBLIC_IP:8000/health
+curl -X POST http://PUBLIC_IP:8000/recommend \
+  -H "Content-Type: application/json" \
+  -d '{"query":"what should I wear to a beach wedding","top_k":5,"filters":{"require_price":true}}'
+```
+
+Expected hosted checks:
+
+- `/health` shows `"llm_configured": true` and `"llm_required": true`.
+- `/recommend` shows `"llm_used": true` and `"llm_provider": "openai"`.
+- Product recommendations still come from the local Amazon Fashion sample index, not from the OpenAI API.

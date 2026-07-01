@@ -525,7 +525,7 @@
       button.disabled = true;
       button.textContent = "Searching";
       latencyLabel.textContent = "Running";
-      results.innerHTML = `<div class="empty-state">Searching local index...</div>`;
+      results.innerHTML = `<div class="empty-state">Interpreting request and searching the local Amazon index...</div>`;
 
       const payload = {
         query: queryInput.value.trim(),
@@ -569,7 +569,9 @@
         }
         stateDot.className = "dot ready";
         stateText.textContent = `${Number(data.product_count || 0).toLocaleString()} products indexed`;
-        backendLabel.textContent = data.llm_configured ? "LLM enabled" : data.embedding_backend || "Local";
+        backendLabel.textContent = data.llm_required
+          ? "OpenAI required"
+          : data.llm_configured ? "LLM enabled" : data.embedding_backend || "Local";
       } catch (error) {
         stateDot.className = "dot error";
         stateText.textContent = "Index unavailable";

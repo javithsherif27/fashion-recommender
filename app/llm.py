@@ -9,6 +9,10 @@ from app import config
 from app.text_utils import expand_query_text, infer_avoid_terms
 
 
+class OpenAIRequiredError(RuntimeError):
+    """Raised when strict OpenAI mode cannot use the OpenAI API."""
+
+
 @dataclass(slots=True)
 class QueryIntent:
     original_query: str
@@ -40,11 +44,12 @@ class LocalQueryInterpreter:
 class OpenAIQueryInterpreter(LocalQueryInterpreter):
     provider = "openai"
 
-    def __init__(self, api_key: str, model: str) -> None:
+    def __init__(self, api_key: str, model: str, *, allow_fallback: bool = True) -> None:
         from openai import OpenAI
 
         self.client = OpenAI(api_key=api_key)
         self.model = model
+        self.allow_fallback = allow_fallback
         self._fallback = LocalQueryInterpreter()
 
     def interpret(self, query: str) -> QueryIntent:
@@ -76,6 +81,10 @@ class OpenAIQueryInterpreter(LocalQueryInterpreter):
                 notes="OpenAI query interpretation was used.",
             )
         except Exception as exc:
+            if not self.allow_fallback:
+                raise OpenAIRequiredError(
+                    f"OpenAI query interpretation is required but failed: {exc}"
+                ) from exc
             fallback = self._fallback.interpret(query)
             fallback.notes = f"OpenAI interpretation failed; used local fallback: {exc}"
             return fallback
@@ -114,8 +123,15 @@ class OpenAIQueryInterpreter(LocalQueryInterpreter):
             reasons = _string_list(parsed.get("reasons"))
             if len(reasons) >= len(items[:5]):
                 return reasons[: len(items[:5])]
-        except Exception:
-            pass
+            if not self.allow_fallback:
+                raise OpenAIRequiredError(
+                    "OpenAI explanation is required but returned fewer reasons than products."
+                )
+        except Exception as exc:
+            if not self.allow_fallback:
+                raise OpenAIRequiredError(
+                    f"OpenAI explanation is required but failed: {exc}"
+                ) from exc
         return super().explain_results(query, items)
 
     def _chat_json(self, messages: list[dict[str, str]]) -> str:
@@ -136,13 +152,26 @@ class OpenAIQueryInterpreter(LocalQueryInterpreter):
 
 
 def get_interpreter() -> LocalQueryInterpreter:
+    openai_disabled = config.USE_LLM in {"0", "false", "no", "off"}
+    if config.REQUIRE_OPENAI and openai_disabled:
+        raise OpenAIRequiredError("OpenAI is required but USE_LLM disables it.")
     if config.USE_LLM in {"0", "false", "no", "off"}:
         return LocalQueryInterpreter()
     if not config.OPENAI_API_KEY:
+        if config.REQUIRE_OPENAI:
+            raise OpenAIRequiredError("OpenAI is required but OPENAI_API_KEY is not set.")
         return LocalQueryInterpreter()
     try:
-        return OpenAIQueryInterpreter(config.OPENAI_API_KEY, config.OPENAI_MODEL)
-    except Exception:
+        return OpenAIQueryInterpreter(
+            config.OPENAI_API_KEY,
+            config.OPENAI_MODEL,
+            allow_fallback=not config.REQUIRE_OPENAI,
+        )
+    except Exception as exc:
+        if config.REQUIRE_OPENAI:
+            raise OpenAIRequiredError(
+                f"OpenAI is required but the client could not be created: {exc}"
+            ) from exc
         return LocalQueryInterpreter()
 
 
