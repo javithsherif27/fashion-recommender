@@ -251,3 +251,68 @@ def test_audience_word_alone_is_not_fashion_request(tmp_path) -> None:
 
     assert result["recommendations"] == []
     assert result["message"] is not None
+
+
+def test_color_attribute_query_returns_recommendations(tmp_path) -> None:
+    products = [
+        ProductRecord(
+            parent_asin="COLOR1",
+            title="Blue pink floral scarf",
+            store="Color Shop",
+            price=18.99,
+            average_rating=4.4,
+            rating_number=44,
+            main_category="AMAZON FASHION",
+            search_text="blue pink floral scarf accessory lightweight",
+        ),
+        ProductRecord(
+            parent_asin="COLOR2",
+            title="Black leather belt",
+            store="Color Shop",
+            price=22.99,
+            average_rating=4.5,
+            rating_number=15,
+            main_category="AMAZON FASHION",
+            search_text="black leather belt accessory",
+        ),
+    ]
+    build_index(products, HashingEmbedder(), tmp_path, source_path=tmp_path / "sample.jsonl.gz")
+    index = ProductIndex.load(tmp_path)
+
+    result = index.recommend(
+        "blue pink",
+        top_k=5,
+        filters=ProductFilters(require_price=True),
+        interpreter=LocalQueryInterpreter(),
+    )
+
+    assert result["message"] is None
+    assert result["recommendations"]
+    assert result["recommendations"][0]["parent_asin"] == "COLOR1"
+
+
+def test_general_question_with_color_is_not_fashion_request(tmp_path) -> None:
+    products = [
+        ProductRecord(
+            parent_asin="BLUE1",
+            title="Blue cotton shirt",
+            store="Color Shop",
+            price=19.99,
+            average_rating=4.2,
+            rating_number=19,
+            main_category="AMAZON FASHION",
+            search_text="blue cotton shirt casual",
+        )
+    ]
+    build_index(products, HashingEmbedder(), tmp_path, source_path=tmp_path / "sample.jsonl.gz")
+    index = ProductIndex.load(tmp_path)
+
+    result = index.recommend(
+        "what is blue light",
+        top_k=5,
+        filters=ProductFilters(require_price=True),
+        interpreter=LocalQueryInterpreter(),
+    )
+
+    assert result["recommendations"] == []
+    assert result["message"] is not None

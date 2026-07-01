@@ -227,6 +227,37 @@ FASHION_PRODUCT_TERMS = FASHION_REQUEST_TERMS - {
 
 FASHION_CONTEXT_TERMS = FASHION_REQUEST_TERMS - FASHION_PRODUCT_TERMS
 
+FASHION_ATTRIBUTE_TERMS = {
+    "beige",
+    "black",
+    "blue",
+    "bright",
+    "brown",
+    "burgundy",
+    "camouflage",
+    "camo",
+    "cream",
+    "floral",
+    "gold",
+    "gray",
+    "green",
+    "grey",
+    "khaki",
+    "navy",
+    "orange",
+    "pastel",
+    "pink",
+    "plaid",
+    "purple",
+    "red",
+    "silver",
+    "striped",
+    "tan",
+    "teal",
+    "white",
+    "yellow",
+}
+
 SHOPPING_INTENT_TERMS = {
     "buy",
     "find",
@@ -294,6 +325,9 @@ def is_fashion_request(query: str) -> bool:
         return False
     if tokens & FASHION_PRODUCT_TERMS:
         return True
+    has_attribute_terms = bool(tokens & FASHION_ATTRIBUTE_TERMS)
+    if has_attribute_terms and tokens <= FASHION_ATTRIBUTE_TERMS:
+        return True
     has_shopping_intent = bool(tokens & SHOPPING_INTENT_TERMS)
     has_fashion_context = bool(tokens & FASHION_CONTEXT_TERMS)
     has_descriptive_context = any(
@@ -307,7 +341,9 @@ def is_fashion_request(query: str) -> bool:
             "cold weather",
         )
     )
-    return has_shopping_intent and (has_fashion_context or has_descriptive_context)
+    return has_shopping_intent and (
+        has_fashion_context or has_attribute_terms or has_descriptive_context
+    )
 
 
 def shared_query_terms(query: str, product_text: str, max_terms: int = 5) -> list[str]:

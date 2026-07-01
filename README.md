@@ -17,7 +17,7 @@ It returns product recommendations from the included local vector index with sco
 - Dataset ingestion and vector index builder.
 - Optional OpenAI query interpretation when `OPENAI_API_KEY` is configured.
 - Local fallback path that works without any API key.
-- Fashion-domain guard so unrelated questions return a clear scoped message instead of arbitrary nearest neighbors.
+- Fashion-domain guard so unrelated questions return a clear scoped message while compact product-attribute searches, such as color combinations, still work.
 - Price, rating, listed-price, and audience-aware filtering for cleaner recommendations.
 - Architecture diagram in draw.io and JPEG formats.
 - Prebuilt 16,000-product index under `data/index` so the app can run immediately after dependency installation.
@@ -166,7 +166,7 @@ Diagram files:
 - The app is intentionally small: FastAPI, local files, and numpy vector search are enough for a reviewable prototype.
 - The OpenAI layer is optional because reviewers should be able to run the submission without a secret key.
 - The local fallback includes query expansion for common fashion intents like beach, summer, running, office, wedding, winter, and travel.
-- The recommender rejects non-fashion requests before vector search because nearest-neighbor search will otherwise always return something, even for unrelated questions.
+- The recommender rejects non-fashion requests before vector search because nearest-neighbor search will otherwise always return something, even for unrelated questions. The guard still allows compact product-attribute searches such as color and pattern terms.
 - Audience filtering keeps mens, womens, unisex, and kids-oriented matches aligned with the request instead of relying on similarity alone.
 - `categories` are not used as a primary signal because the inspected Amazon Fashion file has empty category arrays for the sampled rows.
 - The vector index is file-based for simplicity. A production version would move embeddings into a vector database and add background indexing.
