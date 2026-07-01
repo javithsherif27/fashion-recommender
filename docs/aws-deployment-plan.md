@@ -45,7 +45,7 @@ Avoid these resources for this assignment deployment:
 
 ```bash
 sudo dnf update -y
-sudo dnf install -y git python3 python3-pip
+sudo dnf install -y git python3.11 python3.11-pip
 ```
 
 6. Clone the repository:
@@ -60,7 +60,7 @@ cd /opt/fashion-recommender
 7. Install Python dependencies:
 
 ```bash
-python3 -m venv .venv
+python3.11 -m venv .venv
 . .venv/bin/activate
 python -m pip install --upgrade pip
 pip install -r requirements.txt

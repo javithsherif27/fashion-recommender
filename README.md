@@ -25,6 +25,8 @@ It returns product recommendations from the included local vector index with sco
 
 ## Setup
 
+Use Python 3.10 or newer. Python 3.11 is recommended for the AWS deployment.
+
 ```powershell
 cd D:\source-code\2026\ProdaptAssignment\ProdaptAssignment
 python -m venv .venv
@@ -212,12 +214,12 @@ Server setup:
 
 ```bash
 sudo dnf update -y
-sudo dnf install -y git python3 python3-pip
+sudo dnf install -y git python3.11 python3.11-pip
 sudo mkdir -p /opt/fashion-recommender
 sudo chown ec2-user:ec2-user /opt/fashion-recommender
 git clone https://github.com/javithsherif27/fashion-recommender.git /opt/fashion-recommender
 cd /opt/fashion-recommender
-python3 -m venv .venv
+python3.11 -m venv .venv
 . .venv/bin/activate
 python -m pip install --upgrade pip
 pip install -r requirements.txt
