@@ -5,71 +5,57 @@
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
         <mxCell id="title" value="Fashion Recommender - High Level Design" style="text;html=1;strokeColor=none;fillColor=none;fontSize=26;fontStyle=1;fontColor=#111827;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="60" y="35" width="650" height="45" as="geometry" />
+          <mxGeometry x="60" y="35" width="700" height="45" as="geometry" />
         </mxCell>
-        <mxCell id="subtitle" value="Single-instance AWS demo: FastAPI UI/API, OpenAI-required intent handling, and local Amazon Fashion vector search." style="text;html=1;strokeColor=none;fillColor=none;fontSize=13;fontColor=#4b5563;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
-          <mxGeometry x="60" y="78" width="850" height="28" as="geometry" />
+        <mxCell id="subtitle" value="Single EC2 deployment with OpenAI-required intent handling and local Amazon Fashion product retrieval." style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontColor=#4b5563;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="900" height="28" as="geometry" />
         </mxCell>
 
-        <mxCell id="browser" value="Reviewer Browser&#xa;HTTP UI on port 8000" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f9fafb;strokeColor=#475569;fontColor=#111827;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="60" y="245" width="220" height="90" as="geometry" />
+        <mxCell id="flowLabel" value="Runtime access path" style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;fontColor=#374151;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="145" width="260" height="28" as="geometry" />
         </mxCell>
-        <mxCell id="awsBoundary" value="AWS Free-Tier Scoped Deployment" style="rounded=1;whiteSpace=wrap;html=1;arcSize=4;fillColor=#ffffff;strokeColor=#94a3b8;fontColor=#334155;fontStyle=1;align=left;verticalAlign=top;spacing=12;dashed=1;" vertex="1" parent="1">
-          <mxGeometry x="360" y="145" width="760" height="430" as="geometry" />
+        <mxCell id="browser" value="Reviewer browser&#xa;HTTP UI on port 8000" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f9fafb;strokeColor=#475569;fontColor=#111827;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="205" width="210" height="95" as="geometry" />
         </mxCell>
-        <mxCell id="sg" value="Security Group&#xa;8000 public&#xa;22 restricted to admin IP" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f8fafc;strokeColor=#64748b;fontColor=#334155;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="405" y="225" width="190" height="100" as="geometry" />
+        <mxCell id="sg" value="Security group&#xa;8000 public&#xa;22 restricted to admin IP" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f8fafc;strokeColor=#64748b;fontColor=#334155;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="330" y="205" width="210" height="95" as="geometry" />
         </mxCell>
         <mxCell id="ec2" value="EC2 t3.micro&#xa;Amazon Linux + Python 3.11&#xa;systemd service" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="645" y="205" width="230" height="120" as="geometry" />
+          <mxGeometry x="600" y="205" width="230" height="95" as="geometry" />
         </mxCell>
-        <mxCell id="app" value="FastAPI Application&#xa;static UI + /health + /recommend" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ecfdf5;strokeColor=#059669;fontColor=#064e3b;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="645" y="380" width="230" height="100" as="geometry" />
+        <mxCell id="app" value="FastAPI application&#xa;static UI, /health, /recommend" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ecfdf5;strokeColor=#059669;fontColor=#064e3b;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="890" y="205" width="230" height="95" as="geometry" />
+        </mxCell>
+        <mxCell id="result" value="Recommendation response&#xa;ranked products + explanations" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fff7ed;strokeColor=#ea580c;fontColor=#7c2d12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="205" width="230" height="95" as="geometry" />
+        </mxCell>
+
+        <mxCell id="dependencyLabel" value="Runtime dependencies" style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;fontColor=#374151;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="60" y="405" width="260" height="28" as="geometry" />
+        </mxCell>
+        <mxCell id="repo" value="GitHub repository&#xa;deliverable source&#xa;no secrets or DevFiles" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f9fafb;strokeColor=#475569;fontColor=#111827;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="465" width="230" height="95" as="geometry" />
         </mxCell>
         <mxCell id="env" value="/etc/fashion-recommender.env&#xa;root-owned OpenAI key&#xa;REQUIRE_OPENAI=true" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fff7ed;strokeColor=#ea580c;fontColor=#7c2d12;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="405" y="395" width="190" height="100" as="geometry" />
+          <mxGeometry x="600" y="465" width="230" height="95" as="geometry" />
         </mxCell>
-        <mxCell id="index" value="Local Amazon Fashion Index&#xa;products.jsonl&#xa;embeddings.npy" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fffbeb;strokeColor=#d97706;fontColor=#78350f;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="920" y="380" width="170" height="100" as="geometry" />
+        <mxCell id="index" value="Local Amazon Fashion index&#xa;products.jsonl&#xa;embeddings.npy" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fffbeb;strokeColor=#d97706;fontColor=#78350f;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="890" y="465" width="230" height="95" as="geometry" />
         </mxCell>
-
-        <mxCell id="openai" value="OpenAI API&#xa;intent interpretation&#xa;result explanations" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#eef2ff;strokeColor=#4f46e5;fontColor=#312e81;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="1235" y="245" width="230" height="100" as="geometry" />
+        <mxCell id="openai" value="OpenAI API&#xa;query interpretation&#xa;result explanations" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#eef2ff;strokeColor=#4f46e5;fontColor=#312e81;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1180" y="465" width="230" height="95" as="geometry" />
         </mxCell>
-        <mxCell id="github" value="GitHub Repository&#xa;deliverable source&#xa;no DevFiles or secrets" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f9fafb;strokeColor=#475569;fontColor=#111827;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="405" y="640" width="240" height="95" as="geometry" />
-        </mxCell>
-        <mxCell id="data" value="Assignment Dataset&#xa;Amazon Fashion metadata&#xa;prebuilt 16k-product sample index" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f8fafc;strokeColor=#64748b;fontColor=#334155;fontStyle=1;" vertex="1" parent="1">
-          <mxGeometry x="720" y="640" width="260" height="95" as="geometry" />
-        </mxCell>
-        <mxCell id="note" value="Cost guardrail: no load balancer, no NAT Gateway, no RDS, no Route 53, no AWS Secrets Manager, no Elastic IP. OpenAI cost is separate from AWS." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#d1d5db;fontColor=#4b5563;align=left;spacing=12;" vertex="1" parent="1">
-          <mxGeometry x="1050" y="640" width="415" height="95" as="geometry" />
+        <mxCell id="guardrail" value="Free-tier guardrails&#xa;no load balancer, NAT, RDS, Route 53, S3, or Elastic IP" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#d1d5db;fontColor=#4b5563;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="60" y="665" width="1190" height="90" as="geometry" />
         </mxCell>
 
-        <mxCell id="e1" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="browser" target="sg">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e2" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="sg" target="ec2">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e3" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="ec2" target="app">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e4" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="env" target="app">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e5" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="app" target="index">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e6" value="HTTPS API call" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4f46e5;fontColor=#312e81;" edge="1" parent="1" source="app" target="openai">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e7" value="git clone / pull" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#64748b;fontColor=#334155;dashed=1;" edge="1" parent="1" source="github" target="ec2">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
-        <mxCell id="e8" value="index files included" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#64748b;fontColor=#334155;dashed=1;" edge="1" parent="1" source="data" target="index">
-          <mxGeometry relative="1" as="geometry" />
-        </mxCell>
+        <mxCell id="e1" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="browser" target="sg"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e2" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="sg" target="ec2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e3" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="ec2" target="app"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e4" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;exitX=1;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="app" target="result"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e6" value="loaded by systemd" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#ea580c;fontColor=#7c2d12;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="env" target="ec2"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e7" value="local search data" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#d97706;fontColor=#78350f;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="index" target="app"><mxGeometry relative="1" as="geometry" /></mxCell>
+        <mxCell id="e8" value="HTTPS API calls" style="edgeStyle=orthogonalEdgeStyle;endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4f46e5;fontColor=#312e81;exitX=0.5;exitY=0;entryX=0.5;entryY=1;" edge="1" parent="1" source="openai" target="result"><mxGeometry relative="1" as="geometry" /></mxCell>
       </root>
     </mxGraphModel>
   </diagram>
