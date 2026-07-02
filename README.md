@@ -156,27 +156,101 @@ For valid fashion requests, the service:
 6. Deduplicates products.
 7. Returns the top recommendations with scores and reasons.
 
-## Project Setup
+## Project Setup: Local Source Setup And Run
 
 Use Python 3.10 or newer. Python 3.11 is recommended.
 
+The repository already includes a prebuilt 16,000-product sample index under `data/index`, so a reviewer can run the microservice immediately without downloading the raw dataset. Download the raw dataset only if you want to rebuild the index.
+
+### 1. Get The Source
+
+From GitHub:
+
+```powershell
+git clone https://github.com/javithsherif27/fashion-recommender.git
+cd fashion-recommender
+```
+
+From the submitted local folder:
+
 ```powershell
 cd D:\source-code\2026\ProdaptAssignment\ProdaptAssignment
-python -m venv .venv
-.\.venv\Scripts\python -m pip install --upgrade pip
-.\.venv\Scripts\pip install -r requirements.txt
 ```
 
-Run the app:
+### 2. Create A Virtual Environment
+
+Windows PowerShell:
 
 ```powershell
-.\.venv\Scripts\uvicorn app.main:app --reload --port 8000
+python -m venv .venv
+.\.venv\Scripts\python -m pip install --upgrade pip
+.\.venv\Scripts\python -m pip install -r requirements.txt
 ```
 
-Open:
+macOS or Linux:
+
+```bash
+python3 -m venv .venv
+source .venv/bin/activate
+python -m pip install --upgrade pip
+python -m pip install -r requirements.txt
+```
+
+### 3. Start The Microservice
+
+Windows PowerShell:
+
+```powershell
+.\.venv\Scripts\python -m uvicorn app.main:app --reload --port 8000
+```
+
+macOS or Linux:
+
+```bash
+python -m uvicorn app.main:app --reload --port 8000
+```
+
+### 4. Open The Local Endpoints
 
 ```text
-http://127.0.0.1:8000
+Local UI:        http://127.0.0.1:8000
+Swagger UI:      http://127.0.0.1:8000/docs
+OpenAPI schema:  http://127.0.0.1:8000/openapi.json
+Health check:    http://127.0.0.1:8000/health
+```
+
+### 5. Run A Local API Request
+
+PowerShell:
+
+```powershell
+Invoke-RestMethod `
+  -Uri http://127.0.0.1:8000/recommend `
+  -Method Post `
+  -ContentType "application/json" `
+  -Body '{"query":"what should I wear to a beach wedding","top_k":5,"filters":{"require_price":true}}'
+```
+
+curl:
+
+```bash
+curl -X POST http://127.0.0.1:8000/recommend \
+  -H "Content-Type: application/json" \
+  -d '{"query":"what should I wear to a beach wedding","top_k":5,"filters":{"require_price":true}}'
+```
+
+### 6. Run Tests
+
+Windows PowerShell:
+
+```powershell
+.\.venv\Scripts\python -m pytest
+```
+
+macOS or Linux:
+
+```bash
+python -m pytest
 ```
 
 ## Optional OpenAI Configuration
