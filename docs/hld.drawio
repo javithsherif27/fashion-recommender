@@ -7,14 +7,14 @@
         <mxCell id="title" value="Fashion Recommender - High Level Design" style="text;html=1;strokeColor=none;fillColor=none;fontSize=26;fontStyle=1;fontColor=#111827;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="60" y="35" width="700" height="45" as="geometry" />
         </mxCell>
-        <mxCell id="subtitle" value="Single EC2 deployment with OpenAI-required intent handling and local Amazon Fashion product retrieval." style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontColor=#4b5563;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="subtitle" value="Single EC2 deployment of the FastAPI microservice with Swagger/OpenAPI, OpenAI-required intent handling, and local Amazon Fashion product retrieval." style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontColor=#4b5563;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="60" y="80" width="900" height="28" as="geometry" />
         </mxCell>
 
         <mxCell id="flowLabel" value="Runtime access path" style="text;html=1;strokeColor=none;fillColor=none;fontSize=14;fontStyle=1;fontColor=#374151;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="60" y="145" width="260" height="28" as="geometry" />
         </mxCell>
-        <mxCell id="browser" value="Reviewer browser&#xa;HTTP UI on port 8000" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f9fafb;strokeColor=#475569;fontColor=#111827;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="browser" value="Reviewer browser&#xa;UI + Swagger docs&#xa;HTTP port 8000" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f9fafb;strokeColor=#475569;fontColor=#111827;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="60" y="205" width="210" height="95" as="geometry" />
         </mxCell>
         <mxCell id="sg" value="Security group&#xa;8000 public&#xa;22 restricted to admin IP" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f8fafc;strokeColor=#64748b;fontColor=#334155;fontStyle=1;" vertex="1" parent="1">
@@ -23,7 +23,7 @@
         <mxCell id="ec2" value="EC2 t3.micro&#xa;Amazon Linux + Python 3.11&#xa;systemd service" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="600" y="205" width="230" height="95" as="geometry" />
         </mxCell>
-        <mxCell id="app" value="FastAPI application&#xa;static UI, /health, /recommend" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ecfdf5;strokeColor=#059669;fontColor=#064e3b;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="app" value="FastAPI microservice&#xa;static UI + Swagger /docs&#xa;/health + /recommend" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ecfdf5;strokeColor=#059669;fontColor=#064e3b;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="890" y="205" width="230" height="95" as="geometry" />
         </mxCell>
         <mxCell id="result" value="Recommendation response&#xa;ranked products + explanations" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fff7ed;strokeColor=#ea580c;fontColor=#7c2d12;fontStyle=1;" vertex="1" parent="1">

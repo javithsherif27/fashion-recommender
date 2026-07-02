@@ -6,6 +6,8 @@ This project is a take-home implementation of a semantic recommendation microser
 
 **Live UI app:** [http://13.206.145.228:8000/](http://13.206.145.228:8000/)
 
+**Swagger API docs:** [http://13.206.145.228:8000/docs](http://13.206.145.228:8000/docs)
+
 Example request:
 
 ```text
@@ -25,6 +27,14 @@ The response returns ranked fashion products with score, price, rating, and expl
 AWS UI app URL:
 
 [http://13.206.145.228:8000/](http://13.206.145.228:8000/)
+
+Swagger UI for the microservice API:
+
+[http://13.206.145.228:8000/docs](http://13.206.145.228:8000/docs)
+
+OpenAPI schema:
+
+[http://13.206.145.228:8000/openapi.json](http://13.206.145.228:8000/openapi.json)
 
 The demo is hosted on a single EC2 instance with `REQUIRE_OPENAI=true`, so hosted recommendation requests must use the OpenAI API for query interpretation and explanations. Product retrieval still uses the local Amazon Fashion index included in this repository.
 
@@ -46,7 +56,7 @@ That page is served from `docs/index.html` when GitHub Pages is enabled for the 
 | --- | --- |
 | Parse natural-language fashion queries | OpenAI interpreter when configured, local deterministic interpreter for offline runs |
 | Find relevant products from provided dataset | Local vector search over a prebuilt Amazon Fashion index |
-| Expose functionality through function, CLI, or API | FastAPI endpoint, CLI, and browser demo |
+| Expose functionality through function, CLI, or API | FastAPI microservice, Swagger/OpenAPI docs, CLI, and browser demo |
 | Optional minimal front end | Included local UI served by FastAPI |
 | Architecture diagram in JPEG or PDF | `docs/architecture.pdf` plus editable Draw.io sources |
 | README with setup, sample usage, and trade-offs | This document |
@@ -56,7 +66,7 @@ That page is served from `docs/index.html` when GitHub Pages is enabled for the 
 
 ```text
 app/
-  main.py              FastAPI app, routes, health checks
+  main.py              FastAPI microservice, routes, Swagger/OpenAPI docs, health checks
   search.py            ProductIndex, vector search, filters, ranking
   llm.py               OpenAI/local query interpretation and explanations
   embedding.py         Hashing embedder and optional semantic embedder wiring
@@ -202,6 +212,18 @@ In strict mode, `/health` should show:
 ```
 
 ## Sample Usage
+
+Interactive Swagger UI:
+
+```text
+http://127.0.0.1:8000/docs
+```
+
+OpenAPI schema:
+
+```text
+http://127.0.0.1:8000/openapi.json
+```
 
 Health check:
 

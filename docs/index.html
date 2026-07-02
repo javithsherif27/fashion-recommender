@@ -156,8 +156,10 @@
       <h1>Semantic Fashion Recommendation Microservice</h1>
       <p class="subhead">A take-home project that interprets natural-language fashion requests and returns product recommendations from the provided Amazon Fashion dataset.</p>
       <p class="subhead"><strong>Live UI app:</strong> <a href="http://13.206.145.228:8000/">http://13.206.145.228:8000/</a></p>
+      <p class="subhead"><strong>Swagger API docs:</strong> <a href="http://13.206.145.228:8000/docs">http://13.206.145.228:8000/docs</a></p>
       <div class="topline">
-        <span class="pill">FastAPI</span>
+        <span class="pill">FastAPI microservice</span>
+        <span class="pill">Swagger/OpenAPI</span>
         <span class="pill">Local vector search</span>
         <span class="pill">OpenAI intent layer</span>
         <span class="pill">Amazon Fashion sample index</span>
@@ -177,7 +179,7 @@
         <tbody>
           <tr><td>Parse natural-language queries</td><td>OpenAI query interpreter in hosted mode; local deterministic interpreter for offline use.</td></tr>
           <tr><td>Recommend products from the dataset</td><td>Local vector search over a 16,000-product Amazon Fashion index.</td></tr>
-          <tr><td>Expose the service</td><td>FastAPI endpoint, CLI command, and browser demo UI.</td></tr>
+          <tr><td>Expose the service</td><td>FastAPI microservice with Swagger/OpenAPI docs, CLI command, and browser demo UI.</td></tr>
           <tr><td>Architecture diagram</td><td><code>docs/architecture.pdf</code> plus editable Draw.io diagrams.</td></tr>
           <tr><td>README and design explanation</td><td>Reviewer-facing setup, usage, design decisions, trade-offs, tests, and deployment notes.</td></tr>
         </tbody>
@@ -187,7 +189,7 @@
     <section>
       <h2>Runtime Flow</h2>
       <div class="flow">
-        <div class="step"><b>1. Request</b>Browser or API sends a fashion shopping query.</div>
+        <div class="step"><b>1. Request</b>Browser UI, Swagger UI, API client, or CLI sends a fashion shopping query.</div>
         <div class="step"><b>2. Interpret</b>OpenAI rewrites the request into compact fashion search intent in AWS strict mode.</div>
         <div class="step"><b>3. Guard</b>Unrelated questions are rejected before vector search.</div>
         <div class="step"><b>4. Search</b>The app searches local Amazon Fashion embeddings with numpy similarity.</div>
@@ -200,7 +202,7 @@
       <div class="grid">
         <div class="card"><strong>Dataset stays local</strong>OpenAI does not search the web or replace the dataset. Every product result comes from <code>data/index</code>.</div>
         <div class="card"><strong>Strict hosted mode</strong>AWS runs with <code>REQUIRE_OPENAI=true</code>. Missing credentials or OpenAI failures return HTTP 503.</div>
-        <div class="card"><strong>Reviewable prototype</strong>FastAPI, file-based vectors, and numpy keep the implementation compact and easy to inspect.</div>
+        <div class="card"><strong>Reviewable microservice</strong>FastAPI, Swagger/OpenAPI, file-based vectors, and numpy keep the implementation compact and easy to inspect.</div>
       </div>
     </section>
 
@@ -210,7 +212,7 @@
 .\.venv\Scripts\python -m pip install --upgrade pip
 .\.venv\Scripts\pip install -r requirements.txt
 .\.venv\Scripts\uvicorn app.main:app --reload --port 8000</code></pre>
-      <p>Open <code>http://127.0.0.1:8000</code> to use the local UI.</p>
+      <p>Open <code>http://127.0.0.1:8000</code> to use the local UI. Open <code>http://127.0.0.1:8000/docs</code> for Swagger API documentation.</p>
     </section>
 
     <section>

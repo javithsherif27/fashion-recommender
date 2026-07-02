@@ -119,6 +119,8 @@ From a local machine:
 
 ```bash
 curl http://PUBLIC_IP:8000/health
+curl http://PUBLIC_IP:8000/docs
+curl http://PUBLIC_IP:8000/openapi.json
 ```
 
 Expected signals:
@@ -130,6 +132,8 @@ Expected signals:
   "llm_required": true
 }
 ```
+
+The Swagger UI should load at `/docs`, and the OpenAPI schema should load at `/openapi.json`.
 
 Run a recommendation:
 
