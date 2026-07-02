@@ -4,6 +4,8 @@ Natural-language product recommendations for the Amazon Fashion metadata dataset
 
 This project is a take-home implementation of a semantic recommendation microservice for an e-commerce fashion product line. It accepts human-style shopping requests, interprets the intent, searches a local Amazon Fashion product index, and returns ranked product recommendations with concise reasons.
 
+**Live UI app:** [http://13.206.145.228:8000/](http://13.206.145.228:8000/)
+
 Example request:
 
 ```text
@@ -18,9 +20,9 @@ The service searches the local Amazon Fashion sample index.
 The response returns ranked fashion products with score, price, rating, and explanation.
 ```
 
-## Live Demo
+## Live UI App
 
-AWS demo URL:
+AWS UI app URL:
 
 [http://13.206.145.228:8000/](http://13.206.145.228:8000/)
 
