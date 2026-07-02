@@ -1,0 +1,240 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Semantic Fashion Recommender Documentation</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f6f5f1;
+      --panel: #ffffff;
+      --ink: #161616;
+      --muted: #5f6368;
+      --line: #d8d3c8;
+      --accent: #23665f;
+      --accent-dark: #164c47;
+      --code: #f2eee5;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      line-height: 1.55;
+    }
+    header {
+      border-bottom: 1px solid var(--line);
+      background: var(--panel);
+    }
+    .wrap {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 32px 24px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: clamp(2rem, 4vw, 3.2rem);
+      line-height: 1.05;
+      letter-spacing: 0;
+    }
+    h2 {
+      margin: 36px 0 12px;
+      font-size: 1.35rem;
+    }
+    h3 {
+      margin: 22px 0 8px;
+      font-size: 1rem;
+    }
+    p { margin: 0 0 14px; }
+    a { color: var(--accent-dark); }
+    .subhead {
+      max-width: 820px;
+      color: var(--muted);
+      font-size: 1.05rem;
+    }
+    .topline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 20px;
+    }
+    .pill {
+      border: 1px solid var(--line);
+      background: #faf9f6;
+      padding: 7px 10px;
+      font-size: .9rem;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+    }
+    .card {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 18px;
+      border-radius: 6px;
+    }
+    .card strong {
+      display: block;
+      margin-bottom: 6px;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--panel);
+      border: 1px solid var(--line);
+    }
+    th, td {
+      border-bottom: 1px solid var(--line);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #ebe7dc;
+      font-weight: 700;
+    }
+    code, pre {
+      background: var(--code);
+      font-family: "Cascadia Mono", Consolas, monospace;
+      font-size: .92rem;
+    }
+    code {
+      padding: 2px 5px;
+    }
+    pre {
+      padding: 14px;
+      overflow-x: auto;
+      border: 1px solid var(--line);
+    }
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(120px, 1fr));
+      gap: 10px;
+      margin: 16px 0;
+    }
+    .step {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      padding: 14px;
+      border-radius: 6px;
+      min-height: 110px;
+    }
+    .step b {
+      display: block;
+      color: var(--accent-dark);
+      margin-bottom: 6px;
+    }
+    footer {
+      border-top: 1px solid var(--line);
+      color: var(--muted);
+    }
+    @media (max-width: 800px) {
+      .grid, .flow {
+        grid-template-columns: 1fr;
+      }
+      .wrap {
+        padding: 24px 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap">
+      <h1>Semantic Fashion Recommendation Microservice</h1>
+      <p class="subhead">A take-home project that interprets natural-language fashion requests and returns product recommendations from the provided Amazon Fashion dataset.</p>
+      <div class="topline">
+        <span class="pill">FastAPI</span>
+        <span class="pill">Local vector search</span>
+        <span class="pill">OpenAI intent layer</span>
+        <span class="pill">Amazon Fashion sample index</span>
+        <span class="pill">AWS EC2 demo</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <section>
+      <h2>What This Project Delivers</h2>
+      <p>GitHub also renders the repository <code>README.md</code> as the primary reviewer-facing documentation page.</p>
+      <table>
+        <thead>
+          <tr><th>Assessment ask</th><th>Implementation</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>Parse natural-language queries</td><td>OpenAI query interpreter in hosted mode; local deterministic interpreter for offline use.</td></tr>
+          <tr><td>Recommend products from the dataset</td><td>Local vector search over a 16,000-product Amazon Fashion index.</td></tr>
+          <tr><td>Expose the service</td><td>FastAPI endpoint, CLI command, and browser demo UI.</td></tr>
+          <tr><td>Architecture diagram</td><td><code>docs/architecture.pdf</code> plus editable Draw.io diagrams.</td></tr>
+          <tr><td>README and design explanation</td><td>Reviewer-facing setup, usage, design decisions, trade-offs, tests, and deployment notes.</td></tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section>
+      <h2>Runtime Flow</h2>
+      <div class="flow">
+        <div class="step"><b>1. Request</b>Browser or API sends a fashion shopping query.</div>
+        <div class="step"><b>2. Interpret</b>OpenAI rewrites the request into compact fashion search intent in AWS strict mode.</div>
+        <div class="step"><b>3. Guard</b>Unrelated questions are rejected before vector search.</div>
+        <div class="step"><b>4. Search</b>The app searches local Amazon Fashion embeddings with numpy similarity.</div>
+        <div class="step"><b>5. Rank</b>Filters, audience checks, dedupe, and explanations produce the final recommendations.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Key Design Points</h2>
+      <div class="grid">
+        <div class="card"><strong>Dataset stays local</strong>OpenAI does not search the web or replace the dataset. Every product result comes from <code>data/index</code>.</div>
+        <div class="card"><strong>Strict hosted mode</strong>AWS runs with <code>REQUIRE_OPENAI=true</code>. Missing credentials or OpenAI failures return HTTP 503.</div>
+        <div class="card"><strong>Reviewable prototype</strong>FastAPI, file-based vectors, and numpy keep the implementation compact and easy to inspect.</div>
+      </div>
+    </section>
+
+    <section>
+      <h2>Quick Start</h2>
+      <pre><code>python -m venv .venv
+.\.venv\Scripts\python -m pip install --upgrade pip
+.\.venv\Scripts\pip install -r requirements.txt
+.\.venv\Scripts\uvicorn app.main:app --reload --port 8000</code></pre>
+      <p>Open <code>http://127.0.0.1:8000</code> to use the local UI.</p>
+    </section>
+
+    <section>
+      <h2>Sample API Request</h2>
+      <pre><code>curl -X POST http://127.0.0.1:8000/recommend \
+  -H "Content-Type: application/json" \
+  -d '{"query":"what should I wear to a beach wedding","top_k":5,"filters":{"require_price":true}}'</code></pre>
+    </section>
+
+    <section>
+      <h2>Documentation Files</h2>
+      <ul>
+        <li><a href="./architecture.pdf">Architecture PDF</a></li>
+        <li><a href="./architecture.drawio">Editable architecture Draw.io</a></li>
+        <li><a href="./hld.drawio">High-level design Draw.io</a></li>
+        <li><a href="./detailed-design.drawio">Detailed design Draw.io</a></li>
+        <li><a href="./aws-deployment-plan.md">AWS deployment plan</a></li>
+        <li><a href="./data_profile.md">Data profile</a></li>
+      </ul>
+    </section>
+
+    <section>
+      <h2>Validation</h2>
+      <p>The test suite covers ingestion, API behavior, OpenAI-required strict mode, search relevance, filters, audience handling, and supported fashion query criteria.</p>
+      <pre><code>pytest
+50 passed</code></pre>
+    </section>
+  </main>
+
+  <footer>
+    <div class="wrap">
+      <p>Repository documentation page. The GitHub README is the primary reviewer entrypoint; this HTML file is a standalone browser view.</p>
+    </div>
+  </footer>
+</body>
+</html>
