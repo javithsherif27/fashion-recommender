@@ -110,6 +110,14 @@
       overflow-x: auto;
       border: 1px solid var(--line);
     }
+    .diagram {
+      display: block;
+      width: 100%;
+      height: auto;
+      margin: 14px 0 24px;
+      border: 1px solid var(--line);
+      background: #f6f5f1;
+    }
     .flow {
       display: grid;
       grid-template-columns: repeat(5, minmax(120px, 1fr));
@@ -213,8 +221,18 @@
 
     <section>
       <h2>Documentation Files</h2>
+      <p>The diagrams below are exported from the cleaned Draw.io source files. They use straight connectors and grid-aligned blocks.</p>
+      <h3>Architecture</h3>
+      <img class="diagram" src="./architecture.svg" alt="Architecture diagram">
+      <h3>High-Level Design</h3>
+      <img class="diagram" src="./hld.svg" alt="High-level design diagram">
+      <h3>Detailed Request Design</h3>
+      <img class="diagram" src="./detailed-design.svg" alt="Detailed request design diagram">
       <ul>
         <li><a href="./architecture.pdf">Architecture PDF</a></li>
+        <li><a href="./architecture.svg">Architecture SVG</a></li>
+        <li><a href="./hld.svg">High-level design SVG</a></li>
+        <li><a href="./detailed-design.svg">Detailed design SVG</a></li>
         <li><a href="./architecture.drawio">Editable architecture Draw.io</a></li>
         <li><a href="./hld.drawio">High-level design Draw.io</a></li>
         <li><a href="./detailed-design.drawio">Detailed design Draw.io</a></li>

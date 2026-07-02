@@ -298,6 +298,14 @@ Assessment-ready architecture PDF:
 
 - `docs/architecture.pdf`
 
+Diagram previews:
+
+![Architecture](docs/architecture.svg)
+
+![High-level design](docs/hld.svg)
+
+![Detailed request design](docs/detailed-design.svg)
+
 Editable diagrams:
 
 - `docs/architecture.drawio`

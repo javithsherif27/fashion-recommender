@@ -1,0 +1,75 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1060" height="1580" viewBox="35 0 1060 1580" role="img" aria-label="detailed-design diagram">
+<defs><marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M 0 0 L 10 4 L 0 8 z" fill="#4b5563" /></marker><marker id="arrowBlue" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M 0 0 L 10 4 L 0 8 z" fill="#4f46e5" /></marker><marker id="arrowOrange" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M 0 0 L 10 4 L 0 8 z" fill="#ea580c" /></marker></defs>
+<rect x="0" y="0" width="100%" height="100%" fill="#f6f5f1" />
+<line x1="580.0" y1="215.0" x2="580.0" y2="245.0" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow)" />
+<line x1="580.0" y1="325.0" x2="580.0" y2="355.0" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow)" />
+<line x1="330.0" y1="395.0" x2="450.0" y2="395.0" stroke="#64748b" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)" />
+<text x="390.0" y="387.0" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#334155">health check</text>
+<line x1="580.0" y1="435.0" x2="580.0" y2="465.0" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow)" />
+<line x1="580.0" y1="545.0" x2="580.0" y2="575.0" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow)" />
+<line x1="710.0" y1="615.0" x2="820.0" y2="615.0" stroke="#dc2626" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)" />
+<text x="765.0" y="607.0" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#7f1d1d">missing key or API error</text>
+<line x1="580.0" y1="655.0" x2="580.0" y2="685.0" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow)" />
+<text x="589.0" y="670.0" text-anchor="start" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#374151">intent ok</text>
+<line x1="710.0" y1="725.0" x2="820.0" y2="725.0" stroke="#64748b" stroke-width="2" stroke-dasharray="7 5" marker-end="url(#arrow)" />
+<text x="765.0" y="717.0" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#334155">not fashion</text>
+<line x1="580.0" y1="765.0" x2="580.0" y2="795.0" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow)" />
+<text x="589.0" y="780.0" text-anchor="start" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#374151">fashion</text>
+<line x1="580.0" y1="875.0" x2="580.0" y2="905.0" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow)" />
+<line x1="580.0" y1="985.0" x2="580.0" y2="1015.0" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow)" />
+<line x1="580.0" y1="1095.0" x2="580.0" y2="1125.0" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow)" />
+<line x1="580.0" y1="1205.0" x2="580.0" y2="1235.0" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow)" />
+<line x1="580.0" y1="1315.0" x2="580.0" y2="1345.0" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow)" />
+<text x="80.0" y="66.2" text-anchor="start" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="26" font-weight="700" fill="#111827">Fashion Recommender - Detailed Request Design</text>
+<text x="80.0" y="98.7" text-anchor="start" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="400" fill="#4b5563">Top-down POST /recommend pipeline. Branches are placed to the side so no connector crosses the main path.</text>
+<rect x="450.0" y="135.0" width="260.0" height="80.0" rx="7" ry="7" fill="#f9fafb" stroke="#475569" stroke-width="1.5" />
+<text x="580.0" y="171.2" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">Browser UI or API client</text>
+<text x="580.0" y="187.5" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">POST /recommend</text>
+<rect x="450.0" y="245.0" width="260.0" height="80.0" rx="7" ry="7" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" />
+<text x="580.0" y="281.2" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#1e3a8a">Pydantic validation</text>
+<text x="580.0" y="297.5" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#1e3a8a">query, top_k, filters</text>
+<rect x="450.0" y="355.0" width="260.0" height="80.0" rx="7" ry="7" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" />
+<text x="580.0" y="391.2" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#064e3b">ProductIndex cache</text>
+<text x="580.0" y="407.5" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#064e3b">load products + embeddings once</text>
+<rect x="90.0" y="355.0" width="240.0" height="80.0" rx="7" ry="7" fill="#f8fafc" stroke="#64748b" stroke-width="1.5" />
+<text x="210.0" y="391.2" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#334155">GET /health</text>
+<text x="210.0" y="407.5" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#334155">reports index and LLM status</text>
+<rect x="450.0" y="465.0" width="260.0" height="80.0" rx="7" ry="7" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.5" />
+<text x="580.0" y="501.2" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#312e81">get_interpreter()</text>
+<text x="580.0" y="517.5" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#312e81">USE_LLM + REQUIRE_OPENAI</text>
+<rect x="450.0" y="575.0" width="260.0" height="80.0" rx="7" ry="7" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.5" />
+<text x="580.0" y="611.2" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#312e81">OpenAI interpret()</text>
+<text x="580.0" y="627.5" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#312e81">search_query, must_have, avoid</text>
+<rect x="820.0" y="575.0" width="240.0" height="80.0" rx="7" ry="7" fill="#fef2f2" stroke="#dc2626" stroke-width="1.5" />
+<text x="940.0" y="603.1" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#7f1d1d">Strict-mode failure</text>
+<text x="940.0" y="619.3" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#7f1d1d">HTTP 503</text>
+<text x="940.0" y="635.6" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#7f1d1d">no local fallback</text>
+<rect x="450.0" y="685.0" width="260.0" height="80.0" rx="7" ry="7" fill="#fff1f2" stroke="#e11d48" stroke-width="1.5" />
+<text x="580.0" y="721.2" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#881337">Fashion-domain guard</text>
+<text x="580.0" y="737.5" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#881337">block unrelated questions</text>
+<rect x="820.0" y="685.0" width="240.0" height="80.0" rx="7" ry="7" fill="#f8fafc" stroke="#64748b" stroke-width="1.5" />
+<text x="940.0" y="721.2" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#334155">Scoped empty response</text>
+<text x="940.0" y="737.5" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#334155">0 recommendations + message</text>
+<rect x="450.0" y="795.0" width="260.0" height="80.0" rx="7" ry="7" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" />
+<text x="580.0" y="831.2" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#064e3b">Embed interpreted query</text>
+<text x="580.0" y="847.5" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#064e3b">hashing backend from manifest</text>
+<rect x="450.0" y="905.0" width="260.0" height="80.0" rx="7" ry="7" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" />
+<text x="580.0" y="941.2" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#064e3b">Vector candidate search</text>
+<text x="580.0" y="957.5" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#064e3b">numpy dot product similarity</text>
+<rect x="450.0" y="1015.0" width="260.0" height="80.0" rx="7" ry="7" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" />
+<text x="580.0" y="1043.1" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#78350f">Candidate filters</text>
+<text x="580.0" y="1059.3" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#78350f">price, rating, listed price, avoid</text>
+<text x="580.0" y="1075.6" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#78350f">terms</text>
+<rect x="450.0" y="1125.0" width="260.0" height="80.0" rx="7" ry="7" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" />
+<text x="580.0" y="1153.1" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#78350f">Rerank and safeguards</text>
+<text x="580.0" y="1169.3" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#78350f">audience checks, product boosts,</text>
+<text x="580.0" y="1185.6" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#78350f">dedupe</text>
+<rect x="450.0" y="1235.0" width="260.0" height="80.0" rx="7" ry="7" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.5" />
+<text x="580.0" y="1271.2" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#312e81">OpenAI explain_results()</text>
+<text x="580.0" y="1287.5" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#312e81">short product reasons</text>
+<rect x="450.0" y="1345.0" width="260.0" height="80.0" rx="7" ry="7" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" />
+<text x="580.0" y="1381.2" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#7c2d12">RecommendResponse</text>
+<text x="580.0" y="1397.5" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#7c2d12">provider, latency, scores, products</text>
+<rect x="90.0" y="1480.0" width="970.0" height="65.0" rx="7" ry="7" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5" />
+<text x="100.0" y="1516.8" text-anchor="start" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="400" fill="#4b5563">Design invariant: OpenAI interprets intent and writes explanations. Product retrieval always uses the local Amazon Fashion index.</text>
+</svg>

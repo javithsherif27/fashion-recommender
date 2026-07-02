@@ -1,0 +1,54 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1420" height="790" viewBox="25 0 1420 790" role="img" aria-label="hld diagram">
+<defs><marker id="arrow" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M 0 0 L 10 4 L 0 8 z" fill="#4b5563" /></marker><marker id="arrowBlue" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M 0 0 L 10 4 L 0 8 z" fill="#4f46e5" /></marker><marker id="arrowOrange" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="strokeWidth"><path d="M 0 0 L 10 4 L 0 8 z" fill="#ea580c" /></marker></defs>
+<rect x="0" y="0" width="100%" height="100%" fill="#f6f5f1" />
+<line x1="270.0" y1="252.5" x2="330.0" y2="252.5" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow)" />
+<line x1="540.0" y1="252.5" x2="600.0" y2="252.5" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow)" />
+<line x1="830.0" y1="252.5" x2="890.0" y2="252.5" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow)" />
+<line x1="1120.0" y1="252.5" x2="1180.0" y2="252.5" stroke="#4b5563" stroke-width="2" marker-end="url(#arrow)" />
+<line x1="715.0" y1="465.0" x2="715.0" y2="300.0" stroke="#ea580c" stroke-width="2" marker-end="url(#arrowOrange)" />
+<text x="724.0" y="382.5" text-anchor="start" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#7c2d12">loaded by systemd</text>
+<line x1="1005.0" y1="465.0" x2="1005.0" y2="300.0" stroke="#d97706" stroke-width="2" marker-end="url(#arrowOrange)" />
+<text x="1014.0" y="382.5" text-anchor="start" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#78350f">local search data</text>
+<line x1="1295.0" y1="465.0" x2="1295.0" y2="300.0" stroke="#4f46e5" stroke-width="2" marker-end="url(#arrowBlue)" />
+<text x="1304.0" y="382.5" text-anchor="start" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="11" fill="#312e81">HTTPS API calls</text>
+<text x="70.0" y="66.2" text-anchor="start" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="26" font-weight="700" fill="#111827">Fashion Recommender - High Level Design</text>
+<text x="70.0" y="98.7" text-anchor="start" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="400" fill="#4b5563">Single EC2 deployment with OpenAI-required intent handling and local Amazon Fashion product retrieval.</text>
+<text x="70.0" y="163.7" text-anchor="start" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#374151">Runtime access path</text>
+<rect x="60.0" y="205.0" width="210.0" height="95.0" rx="7" ry="7" fill="#f9fafb" stroke="#475569" stroke-width="1.5" />
+<text x="165.0" y="248.7" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">Reviewer browser</text>
+<text x="165.0" y="265.0" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">HTTP UI on port 8000</text>
+<rect x="330.0" y="205.0" width="210.0" height="95.0" rx="7" ry="7" fill="#f8fafc" stroke="#64748b" stroke-width="1.5" />
+<text x="435.0" y="240.6" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#334155">Security group</text>
+<text x="435.0" y="256.8" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#334155">8000 public</text>
+<text x="435.0" y="273.1" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#334155">22 restricted to admin IP</text>
+<rect x="600.0" y="205.0" width="230.0" height="95.0" rx="7" ry="7" fill="#eff6ff" stroke="#2563eb" stroke-width="1.5" />
+<text x="715.0" y="240.6" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#1e3a8a">EC2 t3.micro</text>
+<text x="715.0" y="256.8" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#1e3a8a">Amazon Linux + Python 3.11</text>
+<text x="715.0" y="273.1" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#1e3a8a">systemd service</text>
+<rect x="890.0" y="205.0" width="230.0" height="95.0" rx="7" ry="7" fill="#ecfdf5" stroke="#059669" stroke-width="1.5" />
+<text x="1005.0" y="248.7" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#064e3b">FastAPI application</text>
+<text x="1005.0" y="265.0" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#064e3b">static UI, /health, /recommend</text>
+<rect x="1180.0" y="205.0" width="230.0" height="95.0" rx="7" ry="7" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" />
+<text x="1295.0" y="248.7" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#7c2d12">Recommendation response</text>
+<text x="1295.0" y="265.0" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#7c2d12">ranked products + explanations</text>
+<text x="70.0" y="423.7" text-anchor="start" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="14" font-weight="700" fill="#374151">Runtime dependencies</text>
+<rect x="60.0" y="465.0" width="230.0" height="95.0" rx="7" ry="7" fill="#f9fafb" stroke="#475569" stroke-width="1.5" />
+<text x="175.0" y="500.6" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">GitHub repository</text>
+<text x="175.0" y="516.8" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">deliverable source</text>
+<text x="175.0" y="533.1" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#111827">no secrets or DevFiles</text>
+<rect x="600.0" y="465.0" width="230.0" height="95.0" rx="7" ry="7" fill="#fff7ed" stroke="#ea580c" stroke-width="1.5" />
+<text x="715.0" y="500.6" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#7c2d12">/etc/fashion-recommender.env</text>
+<text x="715.0" y="516.8" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#7c2d12">root-owned OpenAI key</text>
+<text x="715.0" y="533.1" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#7c2d12">REQUIRE_OPENAI=true</text>
+<rect x="890.0" y="465.0" width="230.0" height="95.0" rx="7" ry="7" fill="#fffbeb" stroke="#d97706" stroke-width="1.5" />
+<text x="1005.0" y="500.6" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#78350f">Local Amazon Fashion index</text>
+<text x="1005.0" y="516.8" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#78350f">products.jsonl</text>
+<text x="1005.0" y="533.1" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#78350f">embeddings.npy</text>
+<rect x="1180.0" y="465.0" width="230.0" height="95.0" rx="7" ry="7" fill="#eef2ff" stroke="#4f46e5" stroke-width="1.5" />
+<text x="1295.0" y="500.6" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#312e81">OpenAI API</text>
+<text x="1295.0" y="516.8" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#312e81">query interpretation</text>
+<text x="1295.0" y="533.1" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#312e81">result explanations</text>
+<rect x="60.0" y="665.0" width="1190.0" height="90.0" rx="7" ry="7" fill="#ffffff" stroke="#d1d5db" stroke-width="1.5" />
+<text x="655.0" y="706.2" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#4b5563">Free-tier guardrails</text>
+<text x="655.0" y="722.5" text-anchor="middle" font-family="Inter, Segoe UI, Arial, sans-serif" font-size="13" font-weight="700" fill="#4b5563">no load balancer, NAT, RDS, Route 53, S3, or Elastic IP</text>
+</svg>
