@@ -7,7 +7,7 @@
         <mxCell id="title" value="Semantic Fashion Recommendation Microservice" style="text;html=1;strokeColor=none;fillColor=none;fontSize=24;fontStyle=1;fontColor=#111827;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="60" y="35" width="650" height="45" as="geometry" />
         </mxCell>
-        <mxCell id="subtitle" value="Local vector search with optional LLM intent enrichment, fashion relevance checks, and practical product filters." style="text;html=1;strokeColor=none;fillColor=none;fontSize=13;fontColor=#4b5563;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+        <mxCell id="subtitle" value="Local Amazon Fashion vector search with OpenAI-enforced AWS mode, domain guardrails, and practical product filters." style="text;html=1;strokeColor=none;fillColor=none;fontSize=13;fontColor=#4b5563;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
           <mxGeometry x="60" y="78" width="760" height="28" as="geometry" />
         </mxCell>
 
@@ -33,7 +33,7 @@
         <mxCell id="entry" value="Request entry&#xa;API, CLI, or browser UI" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f9fafb;strokeColor=#475569;fontColor=#111827;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="60" y="350" width="190" height="88" as="geometry" />
         </mxCell>
-        <mxCell id="intent" value="Intent interpreter&#xa;optional OpenAI or local expansion" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#eef2ff;strokeColor=#4f46e5;fontColor=#312e81;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="intent" value="Intent interpreter&#xa;OpenAI in AWS strict mode&#xa;local fallback for offline runs" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#eef2ff;strokeColor=#4f46e5;fontColor=#312e81;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="295" y="350" width="220" height="88" as="geometry" />
         </mxCell>
         <mxCell id="guard" value="Fashion-domain guard&#xa;reject unrelated questions early" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fef2f2;strokeColor=#dc2626;fontColor=#7f1d1d;fontStyle=1;" vertex="1" parent="1">
@@ -45,13 +45,13 @@
         <mxCell id="filters" value="Filters and safeguards&#xa;listed price, rating, gender, kids" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fffbeb;strokeColor=#d97706;fontColor=#78350f;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="1100" y="350" width="230" height="88" as="geometry" />
         </mxCell>
-        <mxCell id="response" value="Recommendations&#xa;scores + concise reasons" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fff7ed;strokeColor=#ea580c;fontColor=#7c2d12;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="response" value="Recommendations&#xa;scores + OpenAI/local reasons" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fff7ed;strokeColor=#ea580c;fontColor=#7c2d12;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="1100" y="525" width="230" height="88" as="geometry" />
         </mxCell>
         <mxCell id="empty" value="Scoped empty response&#xa;message explains fashion-only scope" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f8fafc;strokeColor=#64748b;fontColor=#334155;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="560" y="525" width="220" height="88" as="geometry" />
         </mxCell>
-        <mxCell id="note" value="OPENAI_API_KEY is optional. Without a key, the service keeps running with local query expansion and local vector search. The UI defaults to products with a listed price because the source data has many missing prices." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#d1d5db;fontColor=#4b5563;align=left;spacing=12;" vertex="1" parent="1">
+        <mxCell id="note" value="Local runs can work without OpenAI. AWS demo sets REQUIRE_OPENAI=true, so missing credentials or OpenAI API failures return HTTP 503 instead of silently using local interpretation. Product retrieval always stays on the local Amazon Fashion index." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#d1d5db;fontColor=#4b5563;align=left;spacing=12;" vertex="1" parent="1">
           <mxGeometry x="295" y="690" width="760" height="82" as="geometry" />
         </mxCell>
 

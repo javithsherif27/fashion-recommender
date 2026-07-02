@@ -19,7 +19,7 @@ It returns product recommendations from the included local vector index with sco
 - Local fallback path that works without any API key.
 - Fashion-domain guard so unrelated questions return a clear scoped message while compact product-attribute searches, such as color combinations, still work.
 - Price, rating, listed-price, and audience-aware filtering for cleaner recommendations.
-- Architecture diagram in draw.io and JPEG formats.
+- Draw.io architecture, HLD, and detailed design diagrams.
 - Prebuilt 16,000-product index under `data/index` so the app can run immediately after dependency installation.
 - Tests for ingestion, search, and API behavior.
 
@@ -175,7 +175,8 @@ Out-of-domain query -> scoped empty response
 Diagram files:
 
 - `docs/architecture.drawio`
-- `docs/architecture.jpg`
+- `docs/hld.drawio`
+- `docs/detailed-design.drawio`
 
 ## Design Decisions
 

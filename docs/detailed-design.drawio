@@ -1,0 +1,116 @@
+<mxfile host="app.diagrams.net" modified="2026-07-02T00:00:00.000Z" agent="draw.io" version="24.7.17">
+  <diagram id="fashion-recommender-design" name="Detailed Design">
+    <mxGraphModel dx="1700" dy="980" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="980" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="title" value="Fashion Recommender - Detailed Request Design" style="text;html=1;strokeColor=none;fillColor=none;fontSize=26;fontStyle=1;fontColor=#111827;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="55" y="35" width="760" height="45" as="geometry" />
+        </mxCell>
+        <mxCell id="subtitle" value="POST /recommend path with strict OpenAI mode, local vector retrieval, filters, and failure handling." style="text;html=1;strokeColor=none;fillColor=none;fontSize=13;fontColor=#4b5563;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="55" y="78" width="860" height="28" as="geometry" />
+        </mxCell>
+
+        <mxCell id="request" value="Browser UI / API client&#xa;POST /recommend" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f9fafb;strokeColor=#475569;fontColor=#111827;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="55" y="170" width="190" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="validate" value="Pydantic request validation&#xa;query, top_k, filters" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#eff6ff;strokeColor=#2563eb;fontColor=#1e3a8a;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="295" y="170" width="210" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="index" value="ProductIndex cache&#xa;load products + embeddings once" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ecfdf5;strokeColor=#059669;fontColor=#064e3b;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="555" y="170" width="220" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="interpreter" value="get_interpreter()&#xa;reads USE_LLM + REQUIRE_OPENAI" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#eef2ff;strokeColor=#4f46e5;fontColor=#312e81;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="825" y="170" width="230" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="openai" value="OpenAI interpret()&#xa;JSON search_query, must_have, avoid" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#eef2ff;strokeColor=#4f46e5;fontColor=#312e81;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1105" y="170" width="250" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="strictFail" value="Strict-mode failure&#xa;HTTP 503&#xa;no local interpretation fallback" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fef2f2;strokeColor=#dc2626;fontColor=#7f1d1d;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1410" y="170" width="220" height="82" as="geometry" />
+        </mxCell>
+
+        <mxCell id="guard" value="Fashion-domain guard&#xa;reject unrelated questions before search" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fff1f2;strokeColor=#e11d48;fontColor=#881337;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="555" y="350" width="220" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="empty" value="Scoped empty response&#xa;0 recommendations + message" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f8fafc;strokeColor=#64748b;fontColor=#334155;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="295" y="350" width="210" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="embed" value="Embed interpreted query&#xa;hashing backend from local index manifest" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ecfdf5;strokeColor=#059669;fontColor=#064e3b;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="825" y="350" width="230" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="vector" value="Vector candidate search&#xa;numpy dot product similarity" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ecfdf5;strokeColor=#059669;fontColor=#064e3b;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1105" y="350" width="250" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="filters" value="Candidate filtering&#xa;price, rating, listed price, avoid terms" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fffbeb;strokeColor=#d97706;fontColor=#78350f;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1410" y="350" width="220" height="82" as="geometry" />
+        </mxCell>
+
+        <mxCell id="rerank" value="Rerank + safeguards&#xa;audience checks, product-type boosts, dedupe" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fffbeb;strokeColor=#d97706;fontColor=#78350f;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="825" y="540" width="230" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="explain" value="OpenAI explain_results()&#xa;concise product reasons" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#eef2ff;strokeColor=#4f46e5;fontColor=#312e81;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1105" y="540" width="250" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="response" value="RecommendResponse&#xa;llm_used/provider, scores, latency, message" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#fff7ed;strokeColor=#ea580c;fontColor=#7c2d12;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="1410" y="540" width="220" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="health" value="GET /health&#xa;index_ready, product_count, llm_configured, llm_required" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#f9fafb;strokeColor=#475569;fontColor=#111827;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="55" y="540" width="260" height="82" as="geometry" />
+        </mxCell>
+        <mxCell id="note" value="Design invariant: OpenAI never replaces product retrieval. It only interprets fashion intent and writes explanations. The product catalog and embeddings remain the included local Amazon Fashion sample index." style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#d1d5db;fontColor=#4b5563;align=left;spacing=12;" vertex="1" parent="1">
+          <mxGeometry x="380" y="720" width="880" height="82" as="geometry" />
+        </mxCell>
+
+        <mxCell id="e1" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="request" target="validate">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e2" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="validate" target="index">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="index" target="interpreter">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e4" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="interpreter" target="openai">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" value="missing key / API error" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#dc2626;fontColor=#7f1d1d;dashed=1;" edge="1" parent="1" source="openai" target="strictFail">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e6" value="intent ok" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;fontColor=#374151;" edge="1" parent="1" source="openai" target="guard">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1225" y="290" as="sourcePoint" />
+            <mxPoint x="665" y="350" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e7" value="not fashion" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#64748b;fontColor=#334155;dashed=1;" edge="1" parent="1" source="guard" target="empty">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" value="fashion" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;fontColor=#374151;" edge="1" parent="1" source="guard" target="embed">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="embed" target="vector">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e10" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="vector" target="filters">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e11" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="filters" target="rerank">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1520" y="460" as="sourcePoint" />
+            <mxPoint x="940" y="540" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e12" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="rerank" target="explain">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" style="endArrow=block;html=1;rounded=0;strokeWidth=2;strokeColor=#4b5563;" edge="1" parent="1" source="explain" target="response">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" value="health bypasses OpenAI call" style="endArrow=open;html=1;rounded=0;strokeColor=#94a3b8;fontColor=#64748b;dashed=1;" edge="1" parent="1" source="health" target="index">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
