@@ -144,7 +144,7 @@ For valid fashion requests, the service:
 6. Deduplicates products.
 7. Returns the top recommendations with scores and reasons.
 
-## Quick Start
+## Project Setup
 
 Use Python 3.10 or newer. Python 3.11 is recommended.
 
@@ -199,7 +199,7 @@ In strict mode, `/health` should show:
 }
 ```
 
-## API Usage
+## Sample Usage
 
 Health check:
 
