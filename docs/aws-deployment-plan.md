@@ -16,11 +16,11 @@ Reviewer browser
      -> OpenAI API for query interpretation and explanations
 ```
 
-## Free-Tier Guardrails
+## Deployment Guardrails
 
 Keep the deployment limited to:
 
-- One free-tier eligible EC2 instance.
+- One small EC2 instance.
 - One small root EBS volume, for example 8 GB.
 - The default public IPv4 address assigned to the running instance.
 - One security group inbound HTTP/demo port rule.
@@ -31,13 +31,13 @@ Avoid these resources for this assignment deployment:
 - NAT Gateway.
 - RDS or any managed database.
 - Route 53 hosted zone or domain.
-- Elastic IP unless you have verified it stays inside the current free-tier rules for the account.
+- Elastic IP unless it is explicitly needed for the demo.
 - AWS Secrets Manager, because a local root-owned environment file is enough here.
 - S3, CloudFront, ECS, ECR, Lambda, or API Gateway.
 
 ## Deployment Steps
 
-1. Launch an Amazon Linux EC2 instance using a free-tier eligible instance type for the account and region.
+1. Launch an Amazon Linux EC2 instance using a small instance type suitable for the demo.
 2. Set the root EBS volume to a small size, such as 8 GB.
 3. Add a security group inbound rule for TCP `8000`.
 4. SSH to the instance.

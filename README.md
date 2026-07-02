@@ -335,10 +335,10 @@ Reviewer browser
   -> OpenAI API for query interpretation and explanations
 ```
 
-Free-tier guardrails used:
+Deployment guardrails used:
 
 - single EC2 instance
-- free-tier eligible instance type selected by AWS account/region
+- small EC2 instance type selected for the demo
 - small root EBS volume
 - no load balancer
 - no NAT Gateway

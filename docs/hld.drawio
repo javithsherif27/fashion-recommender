@@ -45,7 +45,7 @@
         <mxCell id="openai" value="OpenAI API&#xa;query interpretation&#xa;result explanations" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#eef2ff;strokeColor=#4f46e5;fontColor=#312e81;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="1180" y="465" width="230" height="95" as="geometry" />
         </mxCell>
-        <mxCell id="guardrail" value="Free-tier guardrails&#xa;no load balancer, NAT, RDS, Route 53, S3, or Elastic IP" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#d1d5db;fontColor=#4b5563;fontStyle=1;" vertex="1" parent="1">
+        <mxCell id="guardrail" value="Deployment guardrails&#xa;no load balancer, NAT, RDS, Route 53, S3, or Elastic IP" style="rounded=1;whiteSpace=wrap;html=1;arcSize=8;fillColor=#ffffff;strokeColor=#d1d5db;fontColor=#4b5563;fontStyle=1;" vertex="1" parent="1">
           <mxGeometry x="60" y="665" width="1190" height="90" as="geometry" />
         </mxCell>
 
